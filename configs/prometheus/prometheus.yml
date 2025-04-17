@@ -1,0 +1,70 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  scrape_timeout: 10s
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+            - alertmanager:9093
+
+rule_files:
+  - "alert-rules.yml"
+
+scrape_configs:
+  # Monitoring Server (monitor01) - Prometheus itself
+  - job_name: "prometheus"
+    static_configs:
+      - targets: ["localhost:9090"]
+        labels:
+          host: "monitor01.cw.internal"
+          instance_group: "monitoring"
+
+  # Monitoring Server (monitor01) - Node Exporter
+  - job_name: "monitor01-node-exporter"
+    static_configs:
+      - targets: ["node-exporter:9100"]
+        labels:
+          host: "monitor01.cw.internal"
+          instance_group: "monitoring"
+
+  # Monitoring Server (monitor01) - cAdvisor
+  - job_name: "monitor01-cadvisor"
+    static_configs:
+      - targets: ["cadvisor:8080"]
+        labels:
+          host: "monitor01.cw.internal"
+          instance_group: "monitoring"
+
+  # Dev Server (dev01) - Node Exporter
+  - job_name: "dev01-node-exporter"
+    static_configs:
+      - targets: ["dev01.cw.internal:9100"]
+        labels:
+          host: "dev01.cw.internal"
+          instance_group: "application"
+
+  # Dev Server (dev01) - cAdvisor
+  - job_name: "dev01-cadvisor"
+    static_configs:
+      - targets: ["dev01.cw.internal:8080"]
+        labels:
+          host: "dev01.cw.internal"
+          instance_group: "application"
+
+  # Frontend Server (fe01) - Node Exporter
+  - job_name: "fe01-node-exporter"
+    static_configs:
+      - targets: ["fe01.cw.internal:9100"]
+        labels:
+          host: "fe01.cw.internal"
+          instance_group: "frontend"
+
+  # Frontend Server (fe01) - cAdvisor
+  - job_name: "fe01-cadvisor"
+    static_configs:
+      - targets: ["fe01.cw.internal:8080"]
+        labels:
+          host: "fe01.cw.internal"
+          instance_group: "frontend"
