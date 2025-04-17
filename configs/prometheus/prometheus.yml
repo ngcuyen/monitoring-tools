@@ -22,13 +22,13 @@ scrape_configs:
           instance_group: 'monitoring'
 
   # Application Metrics
-  - job_name: 'application'
-    static_configs:
-      - targets: ['app:9100'] # Your app endpoint
-        labels:
-          host: 'app.cw.internal'
-          instance_group: 'application'
-          service: 'main-app'
+  # - job_name: 'application'
+  #   static_configs:
+  #     - targets: ['app:9100'] # Your app endpoint
+  #       labels:
+  #         host: 'app.cw.internal'
+  #         instance_group: 'application'
+  #         service: 'main-app'
 
   # Monitoring Server (monitor01) - Node Exporter
   - job_name: 'monitor01-node-exporter'

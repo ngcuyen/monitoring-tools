@@ -10,14 +10,14 @@ clients:
 
 scrape_configs:
   # Application logs
-  - job_name: application
-    static_configs:
-      - targets:
-          - localhost
-        labels:
-          job: application
-          host: app.cw.internal
-          __path__: /var/log/app/*.log
+  # - job_name: application
+  #   static_configs:
+  #     - targets:
+  #         - localhost
+  #       labels:
+  #         job: application
+  #         host: app.cw.internal
+  #         __path__: /var/log/app/*.log
 
   - job_name: system
     static_configs:
